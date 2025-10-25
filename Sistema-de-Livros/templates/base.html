@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sistema de Gerenciamento de Livros{% endblock %}</title>
+    <!-- Adicionando links para arquivos CSS externos -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Sistema de Livros</h1>
+            <nav>
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('web.livros') }}">Meus Livros</a>
+                    <a href="{{ url_for('web.novo_livro') }}">Adicionar Livro</a>
+                    <a href="{{ url_for('web.logout') }}">Sair ({{ current_user.nome }})</a>
+                {% else %}
+                    <a href="{{ url_for('web.index') }}">Início</a>
+                    <a href="{{ url_for('web.login') }}">Entrar</a>
+                    <a href="{{ url_for('web.registro') }}">Registrar</a>
+                {% endif %}
+            </nav>
+        </header>
+        
+        <div class="content">
+            {% with mensagens = get_flashed_messages(with_categories=true) %}
+                {% if mensagens %}
+                    <div class="flash-messages">
+                        {% for categoria, mensagem in mensagens %}
+                            <div class="flash {{ categoria }}">{{ mensagem }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

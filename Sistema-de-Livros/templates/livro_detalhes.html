@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}{{ livro.titulo }}{% endblock %}
+
+<!-- Adicionando CSS específico da página de detalhes -->
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/book-detail.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="book-detail-container">
+    <h2>{{ livro.titulo }}</h2>
+    
+    <div class="book-info">
+        <p><strong>Autor:</strong> {{ livro.autor }}</p>
+        
+        {% if livro.isbn %}
+            <p><strong>ISBN:</strong> {{ livro.isbn }}</p>
+        {% endif %}
+        
+        {% if livro.ano_publicacao %}
+            <p><strong>Ano de Publicação:</strong> {{ livro.ano_publicacao }}</p>
+        {% endif %}
+        
+        {% if livro.editora %}
+            <p><strong>Editora:</strong> {{ livro.editora }}</p>
+        {% endif %}
+        
+        {% if livro.descricao %}
+            <div class="book-description">
+                <strong>Descrição:</strong>
+                <p>{{ livro.descricao }}</p>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="book-detail-actions">
+        <a href="{{ url_for('web.editar_livro', id=livro.id) }}" class="btn">Editar</a>
+        <a href="{{ url_for('web.livros') }}" class="btn btn-secondary">Voltar</a>
+        <form method="POST" action="{{ url_for('web.excluir_livro', id=livro.id) }}" 
+              onsubmit="return confirm('Tem certeza que deseja excluir este livro?');">
+            <button type="submit" class="btn btn-danger">Excluir</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

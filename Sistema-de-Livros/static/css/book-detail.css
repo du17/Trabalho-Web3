@@ -1,0 +1,43 @@
+/* Página de detalhes do livro */
+.book-detail-container {
+  max-width: 800px;
+}
+
+.book-detail-container h2 {
+  color: #667eea;
+  margin-bottom: 20px;
+}
+
+.book-info {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.book-info p {
+  margin-bottom: 10px;
+}
+
+.book-info strong {
+  font-weight: 600;
+}
+
+.book-description {
+  margin-top: 20px;
+}
+
+.book-description p {
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.book-detail-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.book-detail-actions form {
+  display: inline;
+  max-width: none;
+}

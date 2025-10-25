@@ -1,0 +1,9 @@
+/* Formulário de livro (criar/editar) */
+.book-form h2 {
+  margin-bottom: 20px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+}

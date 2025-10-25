@@ -1,0 +1,17 @@
+/* Páginas de autenticação (login e registro) */
+.auth-form h2 {
+  margin-bottom: 20px;
+}
+
+.auth-link {
+  margin-top: 20px;
+}
+
+.auth-link a {
+  color: #667eea;
+  text-decoration: none;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Meus Livros{% endblock %}
+
+<!-- Adicionando CSS específico da listagem de livros -->
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/books.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="books-header">
+    <h2>Meus Livros</h2>
+    <a href="{{ url_for('web.novo_livro') }}" class="btn">+ Adicionar Livro</a>
+</div>
+
+<form method="GET" class="search-form">
+    <div class="search-controls">
+        <input type="text" name="q" placeholder="Buscar por título, autor ou ISBN..." value="{{ busca }}">
+        <button type="submit" class="btn">Buscar</button>
+        {% if busca %}
+            <a href="{{ url_for('web.livros') }}" class="btn btn-secondary">Limpar</a>
+        {% endif %}
+    </div>
+</form>
+
+{% if livros %}
+    <div class="books-grid">
+        {% for livro in livros %}
+            <div class="book-card">
+                <h3>{{ livro.titulo }}</h3>
+                <p><strong>Autor:</strong> {{ livro.autor }}</p>
+                {% if livro.isbn %}
+                    <p><strong>ISBN:</strong> {{ livro.isbn }}</p>
+                {% endif %}
+                {% if livro.ano_publicacao %}
+                    <p><strong>Ano:</strong> {{ livro.ano_publicacao }}</p>
+                {% endif %}
+                {% if livro.editora %}
+                    <p><strong>Editora:</strong> {{ livro.editora }}</p>
+                {% endif %}
+                
+                <div class="book-actions">
+                    <a href="{{ url_for('web.ver_livro', id=livro.id) }}" class="btn">Ver</a>
+                    <a href="{{ url_for('web.editar_livro', id=livro.id) }}" class="btn btn-secondary">Editar</a>
+                    <form method="POST" action="{{ url_for('web.excluir_livro', id=livro.id) }}" 
+                          onsubmit="return confirm('Tem certeza que deseja excluir este livro?');">
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="empty-state">
+        {% if busca %}
+            Nenhum livro encontrado para "{{ busca }}".
+        {% else %}
+            Você ainda não cadastrou nenhum livro. Clique em "Adicionar Livro" para começar!
+        {% endif %}
+    </p>
+{% endif %}
+{% endblock %}

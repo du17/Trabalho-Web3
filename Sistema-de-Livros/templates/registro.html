@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Registro - Sistema de Livros{% endblock %}
+
+<!-- Adicionando CSS específico de autenticação -->
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-form">
+    <h2>Criar Conta</h2>
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        
+        <div class="form-group">
+            {{ form.nome.label }}
+            {{ form.nome(class="form-control") }}
+            {% if form.nome.errors %}
+                {% for error in form.nome.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            {{ form.email.label }}
+            {{ form.email(class="form-control") }}
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            {{ form.senha.label }}
+            {{ form.senha(class="form-control") }}
+            {% if form.senha.errors %}
+                {% for error in form.senha.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            {{ form.confirmar.label }}
+            {{ form.confirmar(class="form-control") }}
+            {% if form.confirmar.errors %}
+                {% for error in form.confirmar.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            {{ form.submit(class="btn") }}
+        </div>
+    </form>
+
+    <p class="auth-link">
+        Já tem uma conta? <a href="{{ url_for('web.login') }}">Faça login aqui</a>
+    </p>
+</div>
+{% endblock %}

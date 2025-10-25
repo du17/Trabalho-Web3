@@ -1,0 +1,74 @@
+/* Listagem de livros */
+.books-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.books-header h2 {
+  margin: 0;
+}
+
+.search-form {
+  margin-bottom: 30px;
+  max-width: 100%;
+}
+
+.search-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.search-controls input[type="text"] {
+  flex: 1;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.book-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background: #f9f9f9;
+}
+
+.book-card h3 {
+  color: #667eea;
+  margin-bottom: 10px;
+}
+
+.book-card p {
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.book-card p strong {
+  font-weight: 600;
+}
+
+.book-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.book-actions .btn {
+  font-size: 12px;
+  padding: 6px 12px;
+}
+
+.book-actions form {
+  display: inline;
+  max-width: none;
+}
+
+.empty-state {
+  text-align: center;
+  color: #999;
+  padding: 40px 0;
+}
