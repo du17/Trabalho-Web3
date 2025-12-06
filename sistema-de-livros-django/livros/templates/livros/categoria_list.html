@@ -1,0 +1,46 @@
+{% extends 'livros/base.html' %}
+
+{% block title %}Categorias - Biblioteca{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h1><i class="bi bi-bookmark"></i> Categorias</h1>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="{% url 'categoria_create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Nova Categoria
+        </a>
+    </div>
+</div>
+
+{% if categorias %}
+    <div class="row">
+        {% for categoria in categorias %}
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ categoria.nome }}</h5>
+                        <p class="card-text text-muted">{{ categoria.descricao|truncatewords:20 }}</p>
+                        <p class="text-muted">
+                            <small>{{ categoria.livros.count }} livro{{ categoria.livros.count|pluralize }}</small>
+                        </p>
+                    </div>
+                    <div class="card-footer" style="background: var(--light); border: none;">
+                        <a href="{% url 'categoria_update' categoria.id %}" class="btn btn-sm btn-warning">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <a href="{% url 'categoria_delete' categoria.id %}" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i> Excluir
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i> Nenhuma categoria cadastrada.
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'livros/base.html' %}
+
+{% block title %}{{ livro.titulo }} - Biblioteca{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h1>{{ livro.titulo }}</h1>
+        <p class="text-muted">{{ livro.autor }}</p>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="{% url 'livro_update' livro.id %}" class="btn btn-warning">
+            <i class="bi bi-pencil"></i> Editar
+        </a>
+        <a href="{% url 'livro_delete' livro.id %}" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Excluir
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header" style="background: var(--light); border: none;">
+                <h5 style="margin: 0;">Informações do Livro</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Autor:</strong> {{ livro.autor }}</p>
+                <p><strong>Categoria:</strong> <span class="badge bg-secondary">{{ livro.categoria.nome }}</span></p>
+                <p><strong>ISBN:</strong> <code>{{ livro.isbn }}</code></p>
+                <p><strong>Ano de Publicação:</strong> {{ livro.ano_publicacao }}</p>
+                <p>
+                    <strong>Status:</strong>
+                    <span class="status-badge status-{{ livro.status }}">
+                        {{ livro.get_status_display }}
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header" style="background: var(--light); border: none;">
+                <h5 style="margin: 0;">Quantidade</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Total:</strong> {{ livro.quantidade_total }}</p>
+                <p><strong>Disponível:</strong> {{ livro.quantidade_disponivel }}</p>
+                <p><strong>Emprestado:</strong> {{ livro.quantidade_total|add:"-1"|add:livro.quantidade_disponivel }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if livro.descricao %}
+    <div class="card mb-3">
+        <div class="card-header" style="background: var(--light); border: none;">
+            <h5 style="margin: 0;">Descrição</h5>
+        </div>
+        <div class="card-body">
+            <p>{{ livro.descricao }}</p>
+        </div>
+    </div>
+{% endif %}
+
+<div class="card">
+    <div class="card-header" style="background: var(--light); border: none;">
+        <h5 style="margin: 0;">Auditoria</h5>
+    </div>
+    <div class="card-body">
+        <p class="text-muted mb-0">
+            Cadastrado em: <small>{{ livro.criado_em|date:"d/m/Y H:i" }}</small>
+            <br>
+            Atualizado em: <small>{{ livro.atualizado_em|date:"d/m/Y H:i" }}</small>
+            <br>
+            {% if livro.usuario_responsavel %}
+                Por: <small>{{ livro.usuario_responsavel.first_name|default:livro.usuario_responsavel.username }}</small>
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{% url 'livro_list' %}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Voltar
+    </a>
+</div>
+{% endblock %}

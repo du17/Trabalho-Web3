@@ -1,0 +1,30 @@
+{% extends 'livros/base.html' %}
+
+{% block title %}Confirmar Exclusão - Biblioteca{% endblock %}
+
+{% block content %}
+<div class="card card-danger">
+    <div class="card-header" style="background: #ef4444; color: white; border: none;">
+        <h4 style="margin: 0;"><i class="bi bi-exclamation-triangle"></i> Confirmar Exclusão</h4>
+    </div>
+    <div class="card-body">
+        <p>Tem certeza que deseja excluir o seguinte livro?</p>
+        <div class="alert alert-warning">
+            <h5><strong>{{ livro.titulo }}</strong></h5>
+            <p class="mb-0">{{ livro.autor }}</p>
+        </div>
+        <p class="text-muted">Esta ação é irreversível.</p>
+    </div>
+    <div class="card-footer" style="background: var(--light); border: none;">
+        <form method="POST" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Excluir
+            </button>
+            <a href="{% url 'livro_list' %}" class="btn btn-secondary">
+                <i class="bi bi-x-lg"></i> Cancelar
+            </a>
+        </form>
+    </div>
+</div>
+{% endblock %}

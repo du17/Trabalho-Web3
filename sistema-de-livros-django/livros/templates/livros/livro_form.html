@@ -1,0 +1,76 @@
+{% extends 'livros/base.html' %}
+
+{% block title %}{% if livro %}Editar{% else %}Novo{% endif %} Livro - Biblioteca{% endblock %}
+
+{% block content %}
+<h1>
+    {% if livro %}
+        <i class="bi bi-pencil"></i> Editar Livro
+    {% else %}
+        <i class="bi bi-plus-lg"></i> Novo Livro
+    {% endif %}
+</h1>
+
+<div class="card">
+    <div class="card-body">
+        <form method="POST" novalidate>
+            {% csrf_token %}
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label"><strong>Título</strong></label>
+                    {{ form.titulo }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label"><strong>Autor</strong></label>
+                    {{ form.autor }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label"><strong>Categoria</strong></label>
+                    {{ form.categoria }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label"><strong>ISBN</strong></label>
+                    {{ form.isbn }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label"><strong>Descrição</strong></label>
+                {{ form.descricao }}
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label class="form-label"><strong>Ano de Publicação</strong></label>
+                    {{ form.ano_publicacao }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label"><strong>Quantidade Total</strong></label>
+                    {{ form.quantidade_total }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label"><strong>Disponíveis</strong></label>
+                    {{ form.quantidade_disponivel }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label"><strong>Status</strong></label>
+                    {{ form.status }}
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Salvar
+                </button>
+                <a href="{% url 'livro_list' %}" class="btn btn-secondary">
+                    <i class="bi bi-x-lg"></i> Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
